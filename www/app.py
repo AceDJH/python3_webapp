@@ -120,10 +120,6 @@ def datetime_filter(t):
     return u'%s年%s月%s日' % (dt.year, dt.month, dt.day)
 
 
-def index(request):
-    return web.Response(body='<h1>Awesome</h1>'.encode('utf-8'), content_type='text/html')
-
-
 async def init(loop):
     await orm.create_pool(loop=loop, host='127.0.0.1', port=3306, user='www-data', password='www-data', db='awesome', charset='utf8')
     app = web.Application(loop=loop, middlewares=[
