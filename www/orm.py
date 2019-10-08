@@ -132,7 +132,7 @@ class ModelMetaclass(type):
         for k in mappings.keys():
             attrs.pop(k)
         escaped_fields = list(map(lambda f: '`%s`' % f, fields))
-        attrs['__mappings__'] = mappings# 保存属性和列的映射关系
+        attrs['__mappings__'] = mappings  # 保存属性和列的映射关系
         attrs['__table__'] = tableName
         attrs['__primary_key__'] = primaryKey
         attrs['__fields__'] = fields
@@ -143,7 +143,7 @@ class ModelMetaclass(type):
             create_args_string(len(escaped_fields) + 1))
         attrs['__update__'] = 'update `%s` set %s where `%s` = ?' % (
             tableName, ', '.join(map(lambda f: '`%s` = ?' %
-                                        (mappings.get(f).name or f), fields)), primaryKey)
+                                     (mappings.get(f).name or f), fields)), primaryKey)
         attrs['__delete__'] = 'delete from `%s` where `%s` = ?' % (
             tableName, primaryKey)
         return type.__new__(cls, name, bases, attrs)
@@ -186,9 +186,9 @@ class Model(dict, metaclass=ModelMetaclass):
             sql.append(where)
         if args is None:
             args = []
-        orderBy = kw.get('orderBy', None)
+        orderBy = kw.get(' orderBy', None)
         if orderBy:
-            sql.append('order by')
+            sql.append('order by ')
             sql.append(orderBy)
         limit = kw.get('limit', None)
         if limit is not None:
