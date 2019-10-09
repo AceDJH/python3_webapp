@@ -182,7 +182,7 @@ class Model(dict, metaclass=ModelMetaclass):
         # 我怀疑第二个append应为args.append
         sql = [cls.__select__]
         if where:
-            sql.append('where')
+            sql.append(' where ')  # 前后需要加空格，不然就和条件连在一起了
             sql.append(where)
         if args is None:
             args = []
