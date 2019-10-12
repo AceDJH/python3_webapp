@@ -182,13 +182,13 @@ class Model(dict, metaclass=ModelMetaclass):
         # 我怀疑第二个append应为args.append
         sql = [cls.__select__]
         if where:
-            sql.append(' where ')  # 前后需要加空格，不然就和条件连在一起了
+            sql.append('where ')  # 前后需要加空格，不然就和条件连在一起了
             sql.append(where)
         if args is None:
             args = []
-        orderBy = kw.get(' orderBy', None)
+        orderBy = kw.get('orderBy', None)
         if orderBy:
-            sql.append('order by ')
+            sql.append('order by')
             sql.append(orderBy)
         limit = kw.get('limit', None)
         if limit is not None:
@@ -201,13 +201,13 @@ class Model(dict, metaclass=ModelMetaclass):
                 args.extend(limit)
             else:
                 raise ValueError('Invalid limit value: %s' % str(limit))
-        rs = await select(''.join(sql), args)
+        rs = await select(' '.join(sql), args)
         return [cls(**r) for r in rs]
 
     @classmethod
     async def findNumber(cls, selectField, where=None, args=None):
         'find number by select and where'
-        sql = ['select %s _num_from `%s`' % (selectField, cls.__table__)]
+        sql = ['select %s __num__ from `%s`' % (selectField, cls.__table__)]
         if where:
             sql.append('where')
             sql.append(where)
