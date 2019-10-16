@@ -17,7 +17,7 @@ async def create_pool(loop, **kw):
     logging.info('create database connection pool...')
     global __pool
     __pool = await aiomysql.create_pool(
-        host=kw.get('host', 'localhost'),
+        host=kw.get('host', 'localhost'),  # 若未找到，则给赋值
         port=kw.get('port', 3306),
         user=kw['user'],
         password=kw['password'],
@@ -106,8 +106,11 @@ class TextField(Field):
     def __init__(self, name=None, default=None):
         super().__init__(name, 'text', False, default)
 
+# 自我感觉：元类和web开发中的filter很相似，在创建类时，对类先进行处理
+
 
 class ModelMetaclass(type):
+    # upperattr_metaclass, future_class_name, future_class_parents, uppercase_attr
     def __new__(cls, name, bases, attrs):
         if name == 'Model':
             return type.__new__(cls, name, bases, attrs)
