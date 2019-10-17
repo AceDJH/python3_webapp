@@ -44,6 +44,9 @@ def merge(defaults, override):
 
 
 def toDict(d):
+    '''
+    将一个dict转为Dict
+    '''
     D = Dict()
     for k, v in d.items():
         D[k] = toDict(v) if isinstance(v, dict) else v
